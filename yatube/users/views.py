@@ -1,6 +1,6 @@
 from django.views.generic import CreateView
 from django.contrib.auth.views import PasswordChangeView
-from django.contrib.auth.views import PasswordResetConfirmView
+# from django.contrib.auth.views import PasswordResetConfirmView
 from django.urls import reverse_lazy
 from .forms import CreationForm
 
@@ -16,6 +16,6 @@ class MyPasswordChange(PasswordChangeView):
     template_name = 'users/password_change_form.html'
 
 
-class MyPasswordResetConfirmView(PasswordResetConfirmView):
-    success_url = reverse_lazy('users:reset_complete')
-    template_name = 'users/password_reset_confirm.html'
+# class MyPasswordResetConfirmView(PasswordResetConfirmView):
+#     success_url = reverse_lazy('users:reset_complete')
+#     template_name = 'users/password_reset_confirm.html'
