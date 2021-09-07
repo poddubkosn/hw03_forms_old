@@ -18,6 +18,7 @@
             </ul>
           
             <p>{{ post.text }}</p>
+            <a href="{{post.get_absolute_url}}">Подробная информация(get_absolute_url)</a><br>
             <a href="{% url 'posts:post_detail' post.pk %}">подробная информация </a>
           </article>
           {% if post.group.slug %}       

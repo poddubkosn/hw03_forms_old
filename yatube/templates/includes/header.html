@@ -9,7 +9,11 @@
       
       {% with request.resolver_match.view_name as view_name %}
       <ul class="nav nav-pills">
+         <li class="nav-item">Количество посещений:  {{ num_visits }}</li>
         <li class="nav-item"> 
+          <a class="nav-link {% if view_name  == 'posts:groups' %}active{% endif %}" href="{% url 'posts:groups' %}">Список групп</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link {% if view_name  == 'about:author' %}active{% endif %}" href="{% url 'about:author' %}">Об авторе</a>
         </li>
         <li class="nav-item">

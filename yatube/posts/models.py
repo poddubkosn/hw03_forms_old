@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -12,6 +13,12 @@ class Group(models.Model):
                             help_text='Поле для ввода slug')
     description = models.TextField(verbose_name='Описание группы',
                                    help_text='Поле для ввода описания группы')
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of the model.
+        """
+        return reverse('posts:group_list', args=[str(self.slug)])
 
     def __str__(self) -> str:
         return self.title
@@ -36,6 +43,13 @@ class Post(models.Model):
 
     class Meta:
         ordering = ('-pub_date',)
+        permissions = (("can_read_this", "permission for post"),)
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of the model.
+        """
+        return reverse('posts:post_detail', args=[str(self.id)])
 
     def __str__(self) -> str:
         return self.text[:15]

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Список групп</h1>
+    <li>{{ some_data }}</li>
+        
+
+    {% if group_list %}
+    <ul>
+
+      {% for group in group_list %}
+      <li>
+        <a href="{{ group.get_absolute_url }}">{{ group.title }}</a> - {{group.description}}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Групп нет.</p>
+    {% endif %} 
+{% endblock %}
