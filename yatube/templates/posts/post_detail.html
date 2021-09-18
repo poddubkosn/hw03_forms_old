@@ -37,9 +37,12 @@
                
             </li>
             <li class="list-group-item">
-            {% if owner_of_post %}
+            {% if user.id == post.author.id %}
               <a href="{% url 'posts:post_edit' post.pk %}">редактирование поста</a>
             {% endif %}
+            <!--{% if owner_of_post %}
+              <a href="{% url 'posts:post_edit' post.pk %}">редактирование поста</a>
+            {% endif %}-->
              </li>
           </ul>
         </aside>

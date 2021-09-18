@@ -4,6 +4,11 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from .forms import CreationForm
 
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
+
 
 class SignUp(CreateView):
     form_class = CreationForm

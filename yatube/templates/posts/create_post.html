@@ -36,10 +36,11 @@
                 </div>
                {% endfor %}
               {% endif %}
-              <form method="post"
-              {% if action_url %}
-              action="{% url action_url %}"
+              <form method="post" {% if is_edit %} 
+              action="{% url 'posts:post_edit' post.id %}" 
+              {% else %} action="{% url 'posts:post_create' %}" 
               {% endif %}
+                      
               >
               {% csrf_token %}
                                          

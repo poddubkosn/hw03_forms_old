@@ -51,8 +51,8 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     post_title = post.text
     owner_of_post = False
-    if request.user == post.author:
-        owner_of_post = True
+    # if request.user == post.author:
+    #     owner_of_post = True
     context = {'post': post, 'post_title': post_title,
                'owner_of_post': owner_of_post, }
     return render(request, 'posts/post_detail.html', context)
@@ -81,21 +81,33 @@ def post_create(request):
     return redirect('posts:profile', post.author)
 
 
+# @login_required
+# def post_edit(request, post_id):
+#     post = get_object_or_404(Post, id=post_id)
+#     if post.author.username != request.user.username:
+#         return redirect('posts:post_detail', post_id)
+#     if request.method != 'POST':
+#         form = PostForm(instance=post)
+#         return render(request, 'posts/create_post.html',
+#                                {'form': form, 'is_edit': True})
+#     form = PostForm(request.POST, instance=post)
+#     if not form.is_valid():
+#         return render(request, 'posts/create_post.html',
+#                                {'form': form, 'is_edit': True})
+#     form.save()
+#     return redirect('posts:post_detail', post_id)
+
 @login_required
 def post_edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if post.author.username != request.user.username:
         return redirect('posts:post_detail', post_id)
-    if request.method != 'POST':
-        form = PostForm(instance=post)
-        return render(request, 'posts/create_post.html',
-                               {'form': form, 'is_edit': True})
-    form = PostForm(request.POST, instance=post)
-    if not form.is_valid():
-        return render(request, 'posts/create_post.html',
-                               {'form': form, 'is_edit': True})
-    form.save()
-    return redirect('posts:post_detail', post_id)
+    form = PostForm(request.POST or None, instance=post)
+    if form.is_valid():
+        form.save()
+        return redirect('posts:post_detail', post_id)
+    return render(request, 'posts/create_post.html',
+                  {'form': form, 'post': post, 'is_edit': True})
 
 
 class GroupsListView(generic.ListView):
